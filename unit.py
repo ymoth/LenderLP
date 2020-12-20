@@ -10,6 +10,6 @@ async def edit_msg(
     await bp.api.messages.edit(peer_id=ans.peer_id,message_id=ans.id,message=text1, keep_forward_messages=1)
 
 __author__ = "yMoth"
-__version__ = "1.0.1"
+__version__ = "1.0.3"
 __namelp__ = "Lender"
 

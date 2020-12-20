@@ -4,7 +4,6 @@ from unit import edit_msg
 from prefixs import error_sticker,p,sticker
 import json
 import prefixs as PREFIX
-from loguru import logger
 from unit import __author__,__version__,__namelp__
 bp = Blueprint("Signals")
 
@@ -22,7 +21,7 @@ async def myrptext(ans:Message):
 👊 ударил(а)"""
     await edit_msg(ans, text)
 
-@logger.catch()
+
 @bp.on.message_handler(FromMe(),
                        text=[p+"+нрп <namerp>\n<sticker> <value>",p+"новое рп <namerp>\n<sticker> <value>"],lower=True
                        )
