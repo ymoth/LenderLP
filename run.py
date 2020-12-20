@@ -6,7 +6,7 @@ with open('config.json', encoding="utf-8") as RP:
 tokens = tokenss['tokens']
 token1 = tokenss['tokens'][0]
 
-user = User(tokens=tokens)
+user = User(tokens=tokens, mobile=True)
 
 
 from src.commands import iris,id,signals,time, like, calc,wiki,msgdel,addfriends,commentadd,info,random,online,commands,shubs
