@@ -81,14 +81,16 @@ async def fermaauto(ans:Message):
                                       p+'лс\n<cul1>',
                                       p+'написать\n<cul1>'], lower=True)
 async def MSG(ans: Message, cul1:str):
-    user = ans.reply_message.from_id
-    user1 = await bp.api.users.get(user_ids=ans.reply_message.from_id, fields='photo_id')
-    close = user1[0].is_closed
-    otvet = f" 😇 | Сообщение отправлено пользователю в ЛС."
-    await bp.api.messages.send(user_id=user, message=cul1,random_id=0)
-    await edit_msg(ans, otvet)
-    if close:
-        await edit_msg(ans,f"Сообщение небыло отправленно из-за настроек приватности.")
+    try:
+        user = ans.reply_message.from_id
+        user1 = await bp.api.users.get(user_ids=ans.reply_message.from_id, fields='photo_id')
+        close = user1[0].is_closed
+        otvet = f" 😇 | Сообщение отправлено пользователю в ЛС."
+        await bp.api.messages.send(user_id=user, message=cul1,random_id=0)
+        await edit_msg(ans, otvet)
+    except VKError as e:
+        if e.error_code == 15:
+            await edit_msg(ans,f"Сообщение небыло отправленно из-за настроек приватности.")
 
 
 

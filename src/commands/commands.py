@@ -25,3 +25,12 @@ async def cms(ans:Message):
 id: реплей(ид, айди)
 """
     await edit_msg(ans, text)
+
+@bp.on.message_handler(FromMe(), text=[p+'обновления', p+'обновы'], lower=True)
+async def update(ans:Message):
+    from unit import __updates__
+    txt = f"""
+Обновление:
+{__updates__}"""
+
+    await edit_msg(ans, txt)

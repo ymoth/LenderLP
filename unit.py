@@ -1,6 +1,6 @@
 from vkbottle import Message
 from vkbottle.user import Blueprint
-
+from prefixs import p
 bp = Blueprint("editmsg")
 
 
@@ -12,4 +12,6 @@ async def edit_msg(
 __author__ = "yMoth"
 __version__ = "1.0.3"
 __namelp__ = "Lender"
+
+__updates__ = f"Информация о чатe: {p} чат инфо"
 

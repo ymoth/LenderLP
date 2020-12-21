@@ -76,6 +76,7 @@ async def shabdelete(ans: Message):
 Токены: {y}
 Префикс: {PREFIX.p}
 Ваш ID: {ans.from_id}
+
 """
     return await edit_msg(ans, text)
 
@@ -89,6 +90,28 @@ async def perevod(ans: Message):
     msg = message.translate(message.maketrans(eng, rus))
     await edit_msg(ans, msg)
 
+from loguru import logger
+@logger.catch()
+@bp.on.chat_message(FromMe(),text=[p+"чат инфо", p+"инфо о чате"])
+async def chatinfo(ans:Message):
+    CHATRESPONE = await bp.api.request('messages.getChat', {'chat_id': ans.chat_id})
+    namechat = CHATRESPONE['title']
+    adminchat = CHATRESPONE['admin_id']
+    RESPONE = await bp.api.users.get(user_ids=adminchat)
+    name, fam = RESPONE[0].first_name, RESPONE[0].last_name
+    memberscul = CHATRESPONE['members_count']
+    chat_id = CHATRESPONE['id']
+    photo = CHATRESPONE['photo_50']
+    if not photo:
+        photo = "Не установлена фотография"
 
+    message = f"""
+{sticker}Информация о чате:
+Название беседы: {namechat}
+Администратор беседы: @id{adminchat}({name} {fam}) 
+Количество участников: {memberscul}
+Мой айди чата: {chat_id}
 
+Аватарка чата: {photo}"""
 
+    await edit_msg(ans, message)
