@@ -45,7 +45,7 @@ async def help(ans: Message):
     u_name, u_fam = (await bp.api.users.get(user_ids=ans.from_id, fields="online"))[0].first_name, (await bp.api.users.get(user_ids=ans.from_id))[0].last_name
 
     await bp.api.users.get(user_ids=ans.from_id, fields="online")
-    text = f"""
+    txt = f"""
 
 📖 Посмотреть команды можно тут:
 vk.com/@lenderlp-cmdlp
@@ -59,6 +59,7 @@ vk.com/@lenderlp-cmdlp
 
 Пользователь LLP: @id{ans.from_id}({u_name} {u_fam})
 """
+    await edit_msg(ans, txt)
 
 
 @bp.on.message_handler(FromMe(),text=p+"рп <namerp>", lower=True)
