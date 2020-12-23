@@ -102,9 +102,9 @@ async def shabdelete(ans: Message):
 
 Присутсвие токенов: {y}
 Ваш стикер: {stickerforstart}
-Ваш стикер при ошибке {error_stickerforstart}
+Ваш стикер при ошибке" {error_stickerforstart}
 Ваш префикс: {p}
-Пользователь: id@{ans.from_id}({username} {lastname})
+Пользователь: @id{ans.from_id}({username} {lastname})
 """
     return await edit_msg(ans, text)
 
