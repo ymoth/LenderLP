@@ -38,10 +38,11 @@ random.bp,online.bp,commands.bp,shubs.bp,signals.bp, id.bp,iris.bp)
 user_id = (rget(f'https://api.vk.com/method/users.get?&v=5.52&access_token={token}').json())['response'][0]['id']
 async def start():
     from unit import __author__, __version__, __namelp__
+    from prefixs import p
     text = f"""
 📘 {__namelp__} LP запущен.
 📕 Версия LP: {__version__}
-📙 Автор: {__author__}
+Помощь: {p}помощь
     """
     await user.api.messages.send(peer_id=user_id, message=text, random_id=0)
     from loguru import logger as lg

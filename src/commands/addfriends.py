@@ -61,7 +61,7 @@ async def proverka(ans:Message):
         from prefixs import sticker as STICKERLP
         import time
         ping = round(time.time() - ans.date, 2)
-        obrabotka = ping-0,10
+        obrabotka = ping
         if ping < 1:
             text = f"""
 PING LP: 

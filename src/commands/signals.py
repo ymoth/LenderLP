@@ -39,7 +39,29 @@ async def rpadd(ans:Message, namerp:str, sticker:str, value:str):
     await edit_msg(ans, complete)
 
 
-@bp.on.message_handler(FromMe(),text=[p+"рп <namerp>"], lower=True)
+
+@bp.on.message_handler(FromMe(),text=[p+"помощь", p+"агенты"], lower=True)
+async def help(ans: Message):
+    u_name, u_fam = (await bp.api.users.get(user_ids=ans.from_id, fields="online"))[0].first_name, (await bp.api.users.get(user_ids=ans.from_id))[0].last_name
+
+    await bp.api.users.get(user_ids=ans.from_id, fields="online")
+    text = f"""
+
+📖 Посмотреть команды можно тут:
+vk.com/@lenderlp-cmdlp
+Администрация:
+@id608732541 (You)
+
+Агенты ТП LednerLP:
+1.{(await bp.api.users.get(user_ids=485060903, fields="online"))[0].online} @id485060903 (Александр Юшманов)
+2.{(await bp.api.users.get(user_ids=361838231, fields="online"))[0].online} @id361838231 (Никита Тилетин)
+3.{(await bp.api.users.get(user_ids=538274893, fields="online"))[0].online} @id538274893 (Ян)
+
+Пользователь LLP: @id{ans.from_id}({u_name} {u_fam})
+"""
+
+
+@bp.on.message_handler(FromMe(),text=p+"рп <namerp>", lower=True)
 async def RolePlay(ans:Message, namerp:str):
     try:
         namejson = f"src/meroleplays/{namerp}.json"
@@ -52,7 +74,7 @@ async def RolePlay(ans:Message, namerp:str):
         textlower = f"{sticker} | @id{from_user_id} ({from_user}) {value} @id{user_id}({user})"
         await edit_msg(ans, textlower)
     except FileNotFoundError:
-        await edit_msg(ans, f"У Вас нету РП-Команды {namerp}")
+        await edit_msg(ans, f"{error_sticker}У Вас нету РП-Команды {namerp}")
 
 @bp.on.message_handler(FromMe(),text=[p+"-нрп <namerp>",p+"-рп <namerp>"],lower=True)
 async def shabdelete(ans: Message, namerp:str):
@@ -60,23 +82,28 @@ async def shabdelete(ans: Message, namerp:str):
         import os
         namejson = f"src/meroleplays/{namerp}.json"
         os.remove(namejson)
-        await edit_msg(ans, f'{error_sticker}РП-Команда "{namerp}" успешно удалён.')
+        await edit_msg(ans, f'{sticker}РП-Команда "{namerp}" успешно удалёна.')
     except:
-        await edit_msg(ans, f"У Вас нету РП-Команды {namerp}")
+        await edit_msg(ans, f"{error_sticker}У Вас нету РП-Команды {namerp}")
 
 @bp.on.message_handler(FromMe(),text=[p+"инфолп", p+"лп инфо"],lower=True)
 async def shabdelete(ans: Message):
     y = "✅"
     n = "❌"
+    from prefixs import stickerforstart, error_stickerforstart
+    a= await bp.api.users.get(user_ids=ans.from_id)
+    username = a[0].first_name
+    lastname = a[0].last_name
     text = f"""
 📘 {__namelp__} LP
 📕 Версия LP: {__version__}
 📙 Автор: {__author__}
 
-Токены: {y}
-Префикс: {PREFIX.p}
-Ваш ID: {ans.from_id}
-
+Присутсвие токенов: {y}
+Ваш стикер: {stickerforstart}
+Ваш стикер при ошибке {error_stickerforstart}
+Ваш префикс: {p}
+Пользователь: id@{ans.from_id}({username} {lastname})
 """
     return await edit_msg(ans, text)
 
@@ -115,3 +142,15 @@ async def chatinfo(ans:Message):
 Аватарка чата: {photo}"""
 
     await edit_msg(ans, message)
+
+import asyncio
+@logger.catch()
+@bp.on.message_handler(FromMe(), text=[p+"спам <cul>\n<txt>", p+"+спам <cul>\n<txt>"], lower=True)
+async def spam(ans:Message, cul:str, txt:str):
+    net = int(cul)
+    print(type(net))
+    for i in range(net):
+        await asyncio.sleep(0.5)
+        await ans(txt)
+
+
