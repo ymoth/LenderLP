@@ -42,20 +42,20 @@ async def rpadd(ans:Message, namerp:str, sticker:str, value:str):
 
 @bp.on.message_handler(FromMe(),text=[p+"помощь", p+"агенты"], lower=True)
 async def help(ans: Message):
-    u_name, u_fam = (await bp.api.users.get(user_ids=ans.from_id, fields="online"))[0].first_name, (await bp.api.users.get(user_ids=ans.from_id))[0].last_name
 
-    await bp.api.users.get(user_ids=ans.from_id, fields="online")
+    a = await bp.api.users.get(user_ids=ans.from_id, fields="online")
+    u_name = a[0].first_name
+    u_fam = a[0].last_name
     txt = f"""
-
 📖 Посмотреть команды можно тут:
 vk.com/@lenderlp-cmdlp
 Администрация:
 @id608732541 (You)
 
 Агенты ТП LednerLP:
-1.{(await bp.api.users.get(user_ids=485060903, fields="online"))[0].online} @id485060903 (Александр Юшманов)
-2.{(await bp.api.users.get(user_ids=361838231, fields="online"))[0].online} @id361838231 (Никита Тилетин)
-3.{(await bp.api.users.get(user_ids=538274893, fields="online"))[0].online} @id538274893 (Ян)
+1.@id485060903 (Александр Юшманов)
+2.@id361838231 (Никита Тилетин)
+3.@id538274893 (Ян)
 
 Пользователь LLP: @id{ans.from_id}({u_name} {u_fam})
 """
