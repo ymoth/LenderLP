@@ -52,10 +52,10 @@ vk.com/@lenderlp-cmdlp
 Администрация:
 @id608732541 (You)
 
-Агенты ТП LednerLP:
-1.@id485060903 (Александр Юшманов)
-2.@id361838231 (Никита Тилетин)
-3.@id538274893 (Ян)
+Агенты ТП {__namelp__} LP:
+🔊 1. @id485060903 (Александр Юшманов)
+🔊 2. @id361838231 (Никита Тилетин)
+🔊 3. @id538274893 (Ян)
 
 Пользователь LLP: @id{ans.from_id}({u_name} {u_fam})
 """
@@ -154,4 +154,35 @@ async def spam(ans:Message, cul:str, txt:str):
         await asyncio.sleep(0.5)
         await ans(txt)
 
+
+@bp.on.message_handler(FromMe(),text=p+"сменить префикс на <newprefix>", lower=True)
+async def np(ans:Message, newprefix:str):
+    with open("config.json", "r", encoding="utf-8") as d:
+        data = json.load(d)
+    data['prefix'] = newprefix
+    with open("config.json", "w", encoding="utf-8") as d:
+        d.write(json.dumps(data, indent=1, ensure_ascii=False))
+
+    await edit_msg(ans,f'{sticker}Ваш префикс был успешно изменён на "{newprefix}"\nПерезапустите LLP!"')
+
+
+@bp.on.message_handler(FromMe(),text=p+"сменить стикер на <newsticker>", lower=True)
+async def ns(ans:Message, newsticker:str):
+    with open("config.json", "r", encoding="utf-8") as d:
+        data = json.load(d)
+    data['stickerLP'] = newsticker
+    with open("config.json", "w", encoding="utf-8") as d:
+        d.write(json.dumps(data, indent=2, ensure_ascii=False))
+    await edit_msg(ans, f'{sticker}Ваш стикер был успешно изменён на "{newsticker}"\nПерезапустите LLP!"')
+
+
+@bp.on.message_handler(FromMe(), text=[p+"сменить еррорстикер на <newerrorsticker>",p+"сменить еррор стикер на <newerrorsticker>"], lower=True)
+async def ne(ans:Message, newerrorsticker:str):
+    with open("config.json", "r", encoding="utf-8") as d:
+        data = json.load(d)
+    data['errorSticker'] = newerrorsticker
+    with open("config.json", "w", encoding="utf-8") as d:
+        d.write(json.dumps(data, indent=3, ensure_ascii=False))
+
+    await edit_msg(ans, f'{sticker}Ваш стикер был успешно изменён на "{newerrorsticker}"\nПерезапустите LLP!"')
 

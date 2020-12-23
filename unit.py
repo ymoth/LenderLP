@@ -10,10 +10,10 @@ async def edit_msg(
     await bp.api.messages.edit(peer_id=ans.peer_id,message_id=ans.id,message=text1, keep_forward_messages=1)
 
 __author__ = "yMoth"
-__version__ = "1.0.5"
+__version__ = "1.0.6"
 __namelp__ = "Lender"
 
-__updates__ = f"Информация о чатe: {p} чат инфо"
+__updates__ = f"Смена префиксов, стикеров, еррор стикеров.\n Команда {p}спам число [enter] текст спама"
 
 class colors:
     HEADER = '\033[95m'
