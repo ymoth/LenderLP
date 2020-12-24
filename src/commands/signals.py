@@ -40,28 +40,6 @@ async def rpadd(ans:Message, namerp:str, sticker:str, value:str):
 
 
 
-@bp.on.message_handler(FromMe(),text=[p+"помощь", p+"агенты"], lower=True)
-async def help(ans: Message):
-
-    a = await bp.api.users.get(user_ids=ans.from_id, fields="online")
-    u_name = a[0].first_name
-    u_fam = a[0].last_name
-    txt = f"""
-📖 Посмотреть команды можно тут:
-vk.com/@lenderlp-cmdlp
-Администрация:
-@id608732541 (You)
-
-Агенты ТП {__namelp__} LP:
-🔊 1. @id485060903 (Александр Юшманов)
-🔊 2. @id361838231 (Никита Тилетин)
-🔊 3. @id538274893 (Ян)
-
-Пользователь LLP: @id{ans.from_id}({u_name} {u_fam})
-"""
-    await edit_msg(ans, txt)
-
-
 @bp.on.message_handler(FromMe(),text=p+"рп <namerp>", lower=True)
 async def RolePlay(ans:Message, namerp:str):
     try:
@@ -185,4 +163,14 @@ async def ne(ans:Message, newerrorsticker:str):
         d.write(json.dumps(data, indent=3, ensure_ascii=False))
 
     await edit_msg(ans, f'{sticker}Ваш стикер был успешно изменён на "{newerrorsticker}"\nПерезапустите LLP!"')
+
+@logger.catch()
+@bp.on.message_handler(FromMe(),text=[p+"сообщения"], lower=True)
+async def msgdel(ans:Message):
+    sms = await bp.api.messages.get_history(peer_id=ans.peer_id, count=10)
+    for i in sms:
+        b = sms.items[0].text
+
+from vkbottle import TaskManager
+import asyncio
 

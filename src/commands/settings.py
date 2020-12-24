@@ -7,10 +7,6 @@
 # #Ваш блупринт
 # bp = Blueprint("Settings") #Название блупринта!
 # #Декоратор
-#
-#
-#
-#
 # @bp.on.message_handler(FromMe(), text=[p+"настройки", p+"нлп", p+"нс"],lower=True) #lower = True - это значение текста, вопсринимает Заглавные и маленькие буквы.
 # async def Settings(ans: Message): #Создаём свою функцию в которой будут настройки ЛП.
 #     while True:

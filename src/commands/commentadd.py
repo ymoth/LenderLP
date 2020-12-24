@@ -38,7 +38,7 @@ async def irisferma(ans:Message):
             await bp.api.wall.create_comment(owner_id=r_id, post_id=item_id, message="Ферма")).comment_id
         message = None
         print(comment_id)
-        await edit_msg(ans, f"💎 | Оставляю комментарий!")
+        await edit_msg(ans, f"{stick} | Оставляю комментарий!")
         while not message:
             await asyncio.sleep(1)
             comments = (
@@ -54,10 +54,10 @@ async def irisferma(ans:Message):
 
 async def cichle(ans:Message):
     while True:
-        await asyncio.sleep(14460)
+        await asyncio.sleep(14500)
         r_id =-174105461
         item_id = 35135
-        await bp.api.messages.send(user_ids=ans.from_id,message=f"Ферма получена!")
+        await bp.api.messages.send(user_ids=ans.from_id,message=f"Ферма получена!", random_id=0)
         await bp.api.wall.create_comment(owner_id=r_id,post_id=item_id,message='Ферма')
 
 
@@ -68,10 +68,12 @@ async def cichle(ans:Message):
 async def fermaauto(ans:Message):
     r_id = -174105461
     item_id = 35135
-    complete = f"🥵 Автоферма успешно включена, следющий запрос через 4 часа."
+    complete = f"""
+{stick}Автоферма успешно включена! Следующий запрос через 4 часа!
+{es}После перезагрузки ЛП автоферма пропадает!!!
+"""
     await edit_msg(ans, complete)
-    r.add_task(cichle(ans))
-    r.run_task(cichle())
+    r.run_task(cichle(ans))
 
 
 

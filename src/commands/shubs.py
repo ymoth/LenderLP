@@ -41,3 +41,6 @@ async def shabdelete(ans: Message, nameshub:str):
         await edit_msg(ans, f'{error_sticker}У вас нет шаблона под именем "{nameshub}"')
 
 
+
+
+
