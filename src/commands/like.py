@@ -6,8 +6,9 @@ from vkbottle import VKError
 bp = Blueprint("LikesAdd")
 from loguru import logger
 
+
 @logger.catch()
-@bp.on.message_handler(FromMe(),text=p+"лайкнуть")
+@bp.on.message_handler(FromMe(),text=p+["+лайк", "лайкнуть"])
 async def function(ans: Message):
     try:
         user1 = await bp.api.users.get(user_ids=ans.reply_message.from_id, fields='photo_id')
@@ -17,8 +18,10 @@ async def function(ans: Message):
                                           item_id=user1[0].photo_id.replace(f"{ans.reply_message.from_id}_", ""),
                                           filter='likes', count=1000)
         like = l.count
+        from prefixs import sticker
         u_name = user1[0].first_name
-        text = f'Аватарка для {u_name} успешно лакйнута :)\n❤ Стало лайков: {like}'
+        text = f'{sticker} Лайк успешно поставлен!\nУ {u_name} стало лайков {like}'
+
 
 
         await edit_msg(ans, text)
@@ -28,7 +31,7 @@ async def function(ans: Message):
             await edit_msg(ans, error)
 
 
-@bp.on.message_handler(FromMe(),text=p+"длайк")
+@bp.on.message_handler(FromMe(),text=p+["-лайк", "убрать лайк"])
 async def function(ans: Message):
     try:
         user1 = await bp.api.users.get(user_ids=ans.reply_message.from_id, fields='photo_id')
@@ -40,10 +43,10 @@ async def function(ans: Message):
         like = l.count
         u_name = user1[0].first_name
         clos = user1[0].is_closed
-        await edit_msg(ans, f"Лайк был убран с аватарки {u_name}\nСтало лайков {like}")
+        from prefixs import sticker
+        await edit_msg(ans, f"{sticker} Лайк убран!\nУ {u_name} стало лайков: {like}")
     except VKError as ERR:
-        if ERR == 15:
-            from prefixs import error_sticker
-            await edit_msg(ans, f"{error_sticker} Нет доступа. Профиль либо закрыт, либо я в ЧС.")
+        from prefixs import error_sticker
+        await edit_msg(ans, f"{error_sticker} Нет доступа. Профиль либо закрыт, либо я в ЧС.")
 
 

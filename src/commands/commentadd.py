@@ -38,7 +38,7 @@ async def irisferma(ans:Message):
             await bp.api.wall.create_comment(owner_id=r_id, post_id=item_id, message="Ферма")).comment_id
         message = None
         print(comment_id)
-        await edit_msg(ans, f"{stick} | Оставляю комментарий!")
+        await edit_msg(ans, f"{stick} Оставляю комментарий.")
         while not message:
             await asyncio.sleep(1)
             comments = (

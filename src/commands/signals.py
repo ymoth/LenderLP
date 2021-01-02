@@ -174,3 +174,6 @@ async def msgdel(ans:Message):
 from vkbottle import TaskManager
 import asyncio
 
+@bp.on.message_handler(FromMe(),text="а",lower=True)
+async def da(ans:Message):
+    await edit_msg(ans, f"{ans.conversation_message_id}")

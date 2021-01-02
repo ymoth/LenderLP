@@ -16,3 +16,12 @@ async def wiki(ans:Message, cul1:str):
     except wikipedia.PageError:
         from prefixs import error_sticker
         await edit_msg(ans, f'{error_sticker} Запрос "{cul1}" не найден.')
+    except wikipedia.DisambiguationError:
+        from prefixs import error_sticker
+        await edit_msg(ans, f'{error_sticker} Запрос "{cul1}" не найден.')
+    except wikipedia.HTTPTimeoutError:
+        from prefixs import error_sticker
+        await edit_msg(ans, f'{error_sticker} Загруженность Википедии, попробуйте запрос позже.')
+    except wikipedia.ODD_ERROR_MESSAGE:
+        from prefixs import error_sticker
+        await edit_msg(ans, f'{error_sticker} Запрос "{cul1}" не найден.')
