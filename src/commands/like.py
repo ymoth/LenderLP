@@ -8,7 +8,7 @@ from loguru import logger
 
 
 @logger.catch()
-@bp.on.message_handler(FromMe(),text=p+["+лайк", "лайкнуть"])
+@bp.on.message_handler(FromMe(),text=[p+"+лайк", p+"лайкнуть"])
 async def function(ans: Message):
     try:
         user1 = await bp.api.users.get(user_ids=ans.reply_message.from_id, fields='photo_id')
@@ -31,7 +31,7 @@ async def function(ans: Message):
             await edit_msg(ans, error)
 
 
-@bp.on.message_handler(FromMe(),text=p+["-лайк", "убрать лайк"])
+@bp.on.message_handler(FromMe(),text=[p+"-лайк", p+"убрать лайк"])
 async def function(ans: Message):
     try:
         user1 = await bp.api.users.get(user_ids=ans.reply_message.from_id, fields='photo_id')
