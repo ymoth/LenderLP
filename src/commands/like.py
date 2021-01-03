@@ -26,9 +26,8 @@ async def function(ans: Message):
 
         await edit_msg(ans, text)
     except VKError as ERR:
-        if ERR.error_code == 15:
-            error = f'Лайк не поставлен для {u_name}\nПричина: Пользователь с закрытым профилем.'
-            await edit_msg(ans, error)
+        error = f'Лайк не поставлен для {u_name}\nПричина: Пользователь с закрытым профилем.'
+        await edit_msg(ans, error)
 
 
 @bp.on.message_handler(FromMe(),text=[p+"-лайк", p+"убрать лайк"])
