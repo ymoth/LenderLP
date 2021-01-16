@@ -12,7 +12,7 @@ async def edit_msg(
 
 
 __author__ = "yMoth"
-__version__ = "1.0.6"
+__version__ = "1.0.7"
 __namelp__ = "Lender"
 
 __updates__ = f"Добавлена команда {p}стикеры."
@@ -38,3 +38,8 @@ def randomizer(a_, b_):
         return random.uniform(a_, b_)
     except ValueError:
         return f"{ValueError}"
+
+
+
+
+

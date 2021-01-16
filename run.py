@@ -29,12 +29,13 @@ user = User(data['token'], mobile=True)
 
 from src.commands import iris,id,signals,time, like, calc,wiki,msgdel,addfriends,commentadd,info,random,online,commands,shubs
 import unit
+import quote
 from requests import get as rget
 from unit import __version__, __author__, __namelp__
 user.set_blueprints(time.bp,unit.bp,like.bp,
 calc.user,wiki.bp,msgdel.bp,
 addfriends.bp,info.bp,commentadd.bp,
-random.bp,online.bp,commands.bp,shubs.bp,signals.bp, id.bp,iris.bp)
+random.bp,online.bp,commands.bp,shubs.bp,signals.bp, id.bp,iris.bp,quote.bp,quote.bp)
 user_id = (rget(f'https://api.vk.com/method/users.get?&v=5.52&access_token={token}').json())['response'][0]['id']
 async def start():
     from unit import __author__, __version__, __namelp__
@@ -42,7 +43,7 @@ async def start():
     text = f"""
 📘 {__namelp__} LP запущен.
 📕 Версия LP: {__version__}
-Помощь: {p}помощь
+Помощь: {p} помощь
     """
     await user.api.messages.send(peer_id=user_id, message=text, random_id=0)
     from loguru import logger as lg

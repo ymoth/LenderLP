@@ -26,7 +26,7 @@ class Agents:
     Agent1 = '@id361838231(Никита Тиленин)'
     Agent2 = '@id438277254(Валерий Цурков)'
     Agent3 = '@id585779970(Slava Panyukov)'
-    Agent4 = '@id485060903(Юрий Громов)'
+    Agent4 = 'Пусто'
     Agent5 = '@id()'
     Agent6 = '@id()'
     Agent7 = '@id()'
@@ -41,8 +41,6 @@ async def help(ans: Message):
     u_name = a[0].first_name
     u_fam = a[0].last_name
     txt = f"""
-📖 Посмотреть команды можно тут:
-vk.com/@lenderlp-cmdlp
 Администрация:
 @id608732541(You)
 
