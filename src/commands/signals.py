@@ -207,7 +207,7 @@ async def pin_del(ans: Message):
     try:
         from prefixs import sticker
         await bp.api.messages.unpin(peer_id=ans.peer_id)
-        await ans(f"{sticker}Успешно убрано закрепленное сообещение.",reply_to=ans.id)
+        await ans(f"{sticker}Успешно убрано закрепленное сообщение.",reply_to=ans.id)
     except VKError:
         from prefixs import sticker, error_sticker
         await ans(f"{error_sticker}Ошибка..", reply_to=ans.id)
