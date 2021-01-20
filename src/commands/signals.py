@@ -199,7 +199,7 @@ async def pin_add(ans: Message):
         await ans(f"{sticker}Успешно закрепленно сообещение.",reply_to=ans.id)
     except VKError:
         from prefixs import sticker, error_sticker
-        await ans(f"{error_sticker} Не закрепленно сообещение. У вас нет прав.", reply_to=ans.id)
+        await ans(f"{error_sticker} Не закрепленно сообщение. У вас нет прав.", reply_to=ans.id)
 
 
 @bp.on.chat_message(FromMe(), text=[p + "анпин", "-закреп"], lower=True)
