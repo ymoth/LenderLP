@@ -188,3 +188,26 @@ async def msgdel(ans: Message):
 @bp.on.message_handler(FromMe(), text=p + "ксмс", lower=True)
 async def da(ans: Message):
     await edit_msg(ans, f"{sticker} Данный чат растянулся уже на {ans.conversation_message_id} сообщений")
+
+
+from vkbottle import VKError
+@bp.on.chat_message(FromMe(), text=[p + "пин", "+закреп"], lower=True)
+async def pin_add(ans: Message):
+    try:
+        await bp.api.messages.pin(message_id=ans.reply_message.id, peer_id=ans.peer_id)
+        from prefixs import sticker, error_sticker
+        await ans(f"{sticker}Успешно закрепленно сообещение.",reply_to=ans.id)
+    except VKError:
+        from prefixs import sticker, error_sticker
+        await ans(f"{error_sticker} Не закрепленно сообещение. У вас нет прав.", reply_to=ans.id)
+
+
+@bp.on.chat_message(FromMe(), text=[p + "анпин", "-закреп"], lower=True)
+async def pin_del(ans: Message):
+    try:
+        from prefixs import sticker
+        await bp.api.messages.unpin(peer_id=ans.peer_id)
+        await ans(f"{sticker}Успешно убрано закрепленное сообещение.",reply_to=ans.id)
+    except VKError:
+        from prefixs import sticker, error_sticker
+        await ans(f"{error_sticker}Ошибка..", reply_to=ans.id)

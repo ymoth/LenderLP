@@ -91,9 +91,8 @@ async def MSG(ans: Message, cul1:str):
         await bp.api.messages.send(user_id=user, message=cul1,random_id=0)
         await edit_msg(ans, otvet)
     except VKError as e:
-        if e.error_code == 15:
-            from prefixs import error_sticker
-            await edit_msg(ans,f"{error_sticker}Сообщение небыло отправленно из-за настроек приватности.")
+        from prefixs import error_sticker
+        await edit_msg(ans,f"{error_sticker}Сообщение небыло отправленно из-за настроек приватности.")
 
 
 

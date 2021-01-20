@@ -1,7 +1,4 @@
 from vkbottle.user import User
-import json
-import json
-import re
 from loguru import logger
 from loguru import logger as lg
 import re, json
@@ -9,7 +6,6 @@ import re, json
 with open("config.json", 'r') as tok:
     data = json.load(tok)
     token = data['token']
-
 
 if len(token) < 85:
     logger.catch()
@@ -26,31 +22,34 @@ if len(token) < 85:
 
 user = User(data['token'], mobile=True)
 
-
-from src.commands import iris,id,signals,time, like, calc,wiki,msgdel,addfriends,commentadd,info,random,online,commands,shubs
+from src.commands import iris, id, signals, time, like, calc, wiki, msgdel, addfriends, commentadd, info, random, \
+    online, commands, shubs
 import unit
 
 from requests import get as rget
 from unit import __version__, __author__, __namelp__
-user.set_blueprints(time.bp,unit.bp,like.bp,
-calc.user,wiki.bp,msgdel.bp,
-addfriends.bp,info.bp,commentadd.bp,
-random.bp,online.bp,commands.bp,shubs.bp,signals.bp, id.bp,iris.bp)
+
+user.set_blueprints(time.bp, unit.bp, like.bp,
+                    calc.user, wiki.bp, msgdel.bp,
+                    addfriends.bp, info.bp, commentadd.bp,
+                    random.bp, online.bp, commands.bp, shubs.bp, signals.bp, id.bp, iris.bp)
 user_id = (rget(f'https://api.vk.com/method/users.get?&v=5.52&access_token={token}').json())['response'][0]['id']
+
+
 async def start():
     from unit import __author__, __version__, __namelp__
-    from prefixs import p
+    from prefixs import p, stickerforstart
     text = f"""
-📘 {__namelp__} LP запущен.
-📕 Версия LP: {__version__}
-Помощь: {p} помощь
+𝐂𝐨𝐦𝐩𝐥𝐞𝐭𝐞 𝐬𝐭𝐚𝐫𝐭𝐞𝐝.
+{stickerforstart} 𝐍𝐚𝐦𝐞 𝐋𝐏: {__namelp__}
+📕 𝐕𝐞𝐫𝐬𝐢𝐨𝐧 LP: {__version__}
+Агенты: {p} помощь
     """
     await user.api.messages.send(peer_id=user_id, message=text, random_id=0)
     from loguru import logger as lg
-    from prefixs import p
+    from prefixs import p, sticker
     from prefixs import stickerforstart, error_stickerforstart
     from unit import __version__, __author__
-
 
     red = lg.level("[LenderLP]", no=38, color="<yellow>")
     text = f"""
@@ -69,6 +68,4 @@ async def start():
     lg.log("[LenderLР]", "\nИдёт запуск бота!")
 
 
-
 user.run_polling(on_startup=start)
-

@@ -74,15 +74,16 @@ async def proverka(ans: Message):
         if ping < 0:
             ping = 0.0
         text = f"""
-PING LP:
+𝐏𝐈𝐍𝐆 𝐋𝐋𝐏:
 {sticker}Ваш пинг равен: {ping}
 Обработка заняла: {obrabotka}"""
         if ping > 5:
             text = f"""
-PING LP:
+𝐏𝐈𝐍𝐆 𝐋𝐋𝐏:
 {sticker}Ваш пинг равен: {ping}
 Обработка заняла: {obrabotka}
 {error_sticker}У вас высокий пинг!"""
-        await edit_msg(ans, text)
+        await ans(text,reply_to=ans.id)
     except UnboundLocalError:
-        await edit_msg(ans, f"{error_sticker} Не дам пинг! Попробуй запрос ещё раз.")
+        await ans(f"{error_sticker} Не дам пинг! Попробуй запрос ещё раз.", reply_to=ans.id)
+

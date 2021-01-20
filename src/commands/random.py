@@ -42,6 +42,7 @@ async def RandomChat(ans: Message, cul1: str):
 @bp.on.message_handler(FromMe(), text=p + "рчисло <cul1> <cul2>", lower=True)
 async def RandomSize(ans: Message, cul1, cul2):
     from unit import randomizer
-    from prefixs import error_sticker,sticker
+    from prefixs import error_sticker, sticker
     result = randomizer(a_=int(cul1), b_=int(cul2))
-    await edit_msg(ans,f"{sticker}Ваше рандомное число: {result}")
+    await edit_msg(ans, f"{sticker}Ваше рандомное число: {result}")
+

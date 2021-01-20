@@ -15,7 +15,7 @@ __author__ = "yMoth"
 __version__ = "1.0.7"
 __namelp__ = "Lender"
 
-__updates__ = f"Добавлена команда {p}стикеры."
+__updates__ = f"Добавлена команда {p}пин/закреп, анпин."
 
 
 class colors:
