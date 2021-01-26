@@ -74,12 +74,12 @@ async def proverka(ans: Message):
         if ping < 0:
             ping = 0.0
         text = f"""
-𝐏𝐈𝐍𝐆 𝐋𝐋𝐏:
+PING LLP:
 {sticker}Ваш пинг равен: {ping}
 Обработка заняла: {obrabotka}"""
         if ping > 5:
             text = f"""
-𝐏𝐈𝐍𝐆 𝐋𝐋𝐏:
+PING LLP:
 {sticker}Ваш пинг равен: {ping}
 Обработка заняла: {obrabotka}
 {error_sticker}У вас высокий пинг!"""

@@ -39,9 +39,9 @@ async def start():
     from unit import __author__, __version__, __namelp__
     from prefixs import p, stickerforstart
     text = f"""
-𝐂𝐨𝐦𝐩𝐥𝐞𝐭𝐞 𝐬𝐭𝐚𝐫𝐭𝐞𝐝.
-{stickerforstart} 𝐍𝐚𝐦𝐞 𝐋𝐏: {__namelp__}
-📕 𝐕𝐞𝐫𝐬𝐢𝐨𝐧 LP: {__version__}
+Успешно запущен LLP.
+{stickerforstart} Имя ЛП: {__namelp__}
+📕 Версия LP: {__version__}
 Агенты: {p} помощь
     """
     await user.api.messages.send(peer_id=user_id, message=text, random_id=0)
