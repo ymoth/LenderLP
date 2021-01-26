@@ -22,7 +22,7 @@ async def dev_up_check():
 @bp.on.message_handler(FromMe(), text=[p + "подключить dev up <dev_up_token>", p + "подключить дев ап <dev_up_token>"],
                        lower=True)
 async def dev_up_add(ans: Message, dev_up_token: str):
-    if len(dev_up_token) > 33:
+    if len(dev_up_token) > 100:
         await edit_msg(ans, f"{error_sticker}Указан неверный токен DEV-UP\nУкажите правильный токен.")
     else:
         data = {
