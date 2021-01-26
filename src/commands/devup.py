@@ -13,7 +13,7 @@ async def dev_up_check():
     with open("dev_up.json", encoding="utf-8") as Dev_Up:
         token_dvup = json.load(Dev_Up)
 
-    if len(token_dvup) > 33:
+    if len(token_dvup) > 100:
         return False
     else:
         return True
