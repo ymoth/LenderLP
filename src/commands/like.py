@@ -5,6 +5,7 @@ from unit import edit_msg
 from vkbottle import VKError
 bp = Blueprint("LikesAdd")
 from loguru import logger
+import socket
 
 
 @logger.catch()

@@ -10,9 +10,18 @@ async def edit_msg(
         text1: str, ) -> object:
     await bp.api.messages.edit(peer_id=ans.peer_id, message_id=ans.id, message=text1, keep_forward_messages=1)
 
+async def get_user(user_id):
+    username = (await bp.api.users.get(user_ids=user_id))[0].first_name
+    userfamuly = (await bp.api.users.get(user_ids=user_id))[0].last_name
+
+    Info = {
+        "user_name" : f"{username}",
+        "user_family" : f"{userfamuly}"
+    }
+    return Info
 
 __author__ = "yMoth"
-__version__ = "1.0.7"
+__version__ = "1.0.8"
 __namelp__ = "Lender"
 
 __updates__ = f"Добавлена команда {p}пин/закреп, анпин."

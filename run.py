@@ -22,8 +22,7 @@ if len(token) < 85:
 
 user = User(data['token'], mobile=True)
 
-from src.commands import iris, id, signals, time, like, calc, wiki, msgdel, addfriends, commentadd, info, random, \
-    online, commands, shubs
+from src.commands import iris, id, signals, time, like, calc, wiki, msgdel, addfriends, commentadd, info, random, online, commands, shubs, devup
 import unit
 
 from requests import get as rget
@@ -32,7 +31,7 @@ from unit import __version__, __author__, __namelp__
 user.set_blueprints(time.bp, unit.bp, like.bp,
                     calc.user, wiki.bp, msgdel.bp,
                     addfriends.bp, info.bp, commentadd.bp,
-                    random.bp, online.bp, commands.bp, shubs.bp, signals.bp, id.bp, iris.bp)
+                    random.bp, online.bp, commands.bp, shubs.bp, signals.bp, id.bp, iris.bp, devup.bp)
 user_id = (rget(f'https://api.vk.com/method/users.get?&v=5.52&access_token={token}').json())['response'][0]['id']
 
 
