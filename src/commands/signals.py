@@ -218,8 +218,11 @@ async def userAdd(ans: Message):
 
 @bp.on.chat_message(FromMe(), text=[p + "добавить <domain_>", "вернуть <domain_>"])
 async def userAddchat(ans: Message, domain_: str):
-    from unit import get_id_for_domain
-    domain = domain_.replace("@", "")
-    id = get_id_for_domain(domain_=domain)
-    await bp.api.messages.add_chat_user(chat_id=ans.chat_id, user_id=id)
-    await ans(f"{sticker}@id{id}(Пользователь) успешно добавлен в беседу.")
+    try:
+        from unit import get_id_for_domain
+        domain = domain_.replace("@", "")
+        id = get_id_for_domain(domain_=domain)
+        await bp.api.messages.add_chat_user(chat_id=ans.chat_id, user_id=id)
+        await ans(f"{sticker}@id{id}(Пользователь) успешно добавлен в беседу.")
+    except VKError:
+        await ans(f"{error_sticker}Ошибка приватности.")

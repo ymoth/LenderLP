@@ -1,0 +1,6 @@
+aiohttp
+pydantic
+contextvars
+vbml==0.5.93
+watchgod
+loguru
