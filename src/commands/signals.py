@@ -177,26 +177,20 @@ async def ne(ans: Message, newerrorsticker: str):
     await edit_msg(ans, f'{sticker}Ваш стикер был успешно изменён на "{newerrorsticker}"\nПерезапустите LLP!"')
 
 
-@logger.catch()
-@bp.on.message_handler(FromMe(), text=[p + "сообщения"], lower=True)
-async def msgdel(ans: Message):
-    sms = await bp.api.messages.get_history(peer_id=ans.peer_id, count=10)
-    for i in sms:
-        b = sms.items[0].text
-
-
 @bp.on.message_handler(FromMe(), text=p + "ксмс", lower=True)
 async def da(ans: Message):
     await edit_msg(ans, f"{sticker} Данный чат растянулся уже на {ans.conversation_message_id} сообщений")
 
 
 from vkbottle import VKError
+
+
 @bp.on.chat_message(FromMe(), text=[p + "пин", "+закреп"], lower=True)
 async def pin_add(ans: Message):
     try:
         await bp.api.messages.pin(message_id=ans.reply_message.id, peer_id=ans.peer_id)
         from prefixs import sticker, error_sticker
-        await ans(f"{sticker}Успешно закрепленно сообещение.",reply_to=ans.id)
+        await ans(f"{sticker}Успешно закрепленно сообещение.", reply_to=ans.id)
     except VKError:
         from prefixs import sticker, error_sticker
         await ans(f"{error_sticker} Не закрепленно сообщение. У вас нет прав.", reply_to=ans.id)
@@ -207,7 +201,25 @@ async def pin_del(ans: Message):
     try:
         from prefixs import sticker
         await bp.api.messages.unpin(peer_id=ans.peer_id)
-        await ans(f"{sticker}Успешно убрано закрепленное сообщение.",reply_to=ans.id)
+        await ans(f"{sticker}Успешно убрано закрепленное сообщение.", reply_to=ans.id)
     except VKError:
         from prefixs import sticker, error_sticker
         await ans(f"{error_sticker}Ошибка..", reply_to=ans.id)
+
+
+@bp.on.chat_message(FromMe(), text=[p + "вернуть", p + "добавить"], lower=True)
+async def userAdd(ans: Message):
+    try:
+        await bp.api.messages.add_chat_user(user_id=ans.reply_message.from_id, chat_id=ans.chat_id)
+        await ans(f"{sticker}Успешно добавлен пользователь в беседу.", reply_to=ans.id)
+    except VKError:
+        await ans(f"{error_sticker}Не удаётся добавить пользователя. Ошибка приватности.")
+
+
+@bp.on.chat_message(FromMe(), text=[p + "добавить <domain_>", "вернуть <domain_>"])
+async def userAddchat(ans: Message, domain_: str):
+    from unit import get_id_for_domain
+    domain = domain_.replace("@", "")
+    id = get_id_for_domain(domain_=domain)
+    await bp.api.messages.add_chat_user(chat_id=ans.chat_id, user_id=id)
+    await ans(f"{sticker}@id{id}(Пользователь) успешно добавлен в беседу.")
