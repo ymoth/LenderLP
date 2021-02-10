@@ -1,6 +1,6 @@
 from vkbottle.rule import FromMe
 from vkbottle.user import Message, Blueprint
-from unit import edit_msg
+from unit import edit_msg, get_id_for_domain
 from prefixs import error_sticker, p, sticker
 import json
 import prefixs as PREFIX
@@ -226,3 +226,13 @@ async def userAddchat(ans: Message, domain_: str):
         await ans(f"{sticker}@id{id}(Пользователь) успешно добавлен в беседу.")
     except VKError:
         await ans(f"{error_sticker}Ошибка приватности.")
+
+
+@bp.on.chat_message(FromMe(), text=[p + "кик <domain_>", "исключить <domain_>"])
+async def userAddchat(ans: Message, domain_: str):
+    try:
+        domain = domain_.replace("@", "")
+        await bp.api.messages.remove_chat_user(user_id=get_id_for_domain(domain_=domain_), chat_id=ans.chat_id)
+        await ans(f"{sticker}Пользователь успешно удалён из беседы")
+    except VKError:
+        await ans(f"{error_sticker}Пользователь не был удалён из беседы. Ошибка VK API.")
