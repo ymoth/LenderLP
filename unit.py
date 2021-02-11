@@ -23,7 +23,7 @@ async def get_user(user_id):
 
 
 __author__ = "yMoth"
-__version__ = "1.0.8"
+__version__ = "1.0.9"
 __namelp__ = "Lender"
 
 __updates__ = f"Добавлена команда {p}пин/закреп, анпин."

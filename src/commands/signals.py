@@ -71,12 +71,21 @@ async def shabdelete(ans: Message, namerp: str):
 
 @bp.on.message_handler(FromMe(), text=[p + "инфолп", p + "лп инфо"], lower=True)
 async def shabdelete(ans: Message):
+    import time
     y = "✅"
     n = "❌"
     from prefixs import stickerforstart, error_stickerforstart
     a = await bp.api.users.get(user_ids=ans.from_id)
     username = a[0].first_name
     lastname = a[0].last_name
+
+    import os
+    path = "src//shubs//"
+    path2 = "src//meroleplays//"
+    RPCmd = int(len(os.listdir(path)))
+    SHB = int(len(os.listdir(path2)))
+
+
     text = f"""
 📘 {__namelp__} LP
 📕 Версия LP: {__version__}
@@ -84,8 +93,13 @@ async def shabdelete(ans: Message):
 
 Присутсвие токенов: {y}
 Ваш стикер: {stickerforstart}
-Ваш стикер при ошибке" {error_stickerforstart}
+Ваш стикер при ошибке: {error_stickerforstart}
 Ваш префикс: {p}
+Время в данный момент: {time.strftime("%H:%M,%S", time.localtime())} 🕑
+
+Кол-во РП-Команд: {RPCmd+1}
+Кол-во шаблонов: {SHB+1}
+
 Пользователь: @id{ans.from_id}({username} {lastname})
 """
     return await edit_msg(ans, text)
@@ -118,14 +132,13 @@ async def chatinfo(ans: Message):
     photo = CHATRESPONE['photo_50']
     if not photo:
         photo = "Не установлена фотография"
-
+    import time
     message = f"""
 {sticker}Информация о чате:
 Название беседы: {namechat}
 Администратор беседы: @id{adminchat}({name} {fam}) 
 Количество участников: {memberscul}
 Мой айди чата: {chat_id}
-
 Аватарка чата: {photo}"""
 
     await edit_msg(ans, message)
