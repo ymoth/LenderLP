@@ -14,7 +14,6 @@ async def edit_msg(
 async def get_user(user_id):
     username = (await bp.api.users.get(user_ids=user_id))[0].first_name
     userfamuly = (await bp.api.users.get(user_ids=user_id))[0].last_name
-
     Info = {
         "user_name": f"{username}",
         "user_family": f"{userfamuly}"
@@ -23,7 +22,7 @@ async def get_user(user_id):
 
 
 __author__ = "yMoth"
-__version__ = "1.0.9"
+__version__ = "1.1.10"
 __namelp__ = "Lender"
 
 __updates__ = f"Добавлена команда {p}пин/закреп, анпин."

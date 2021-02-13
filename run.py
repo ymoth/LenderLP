@@ -2,8 +2,9 @@ from vkbottle.user import User
 from loguru import logger
 from loguru import logger as lg
 import re, json
+from vkbottle.user import Message
 
-with open("config.json", 'r') as tok:
+with open("config.json", 'r',encoding="utf-8") as tok:
     data = json.load(tok)
     token = data['token']
 
@@ -22,20 +23,36 @@ if len(token) < 85:
 
 user = User(data['token'], mobile=True)
 
-from src.commands import iris, id, signals, time, like, calc, wiki, msgdel, addfriends, commentadd, info, random, online, commands, shubs, devup
+from src.commands import settings, voicetranslate,iris, id, signals, time, like, calc, wiki, msgdel, addfriends, commentadd, info, random, online, commands, shubs, devup
 import unit
 
 from requests import get as rget
 from unit import __version__, __author__, __namelp__
 
-user.set_blueprints(time.bp, unit.bp, like.bp,
+user.set_blueprints(settings.bp,time.bp, unit.bp, like.bp,
                     calc.user, wiki.bp, msgdel.bp,
                     addfriends.bp, info.bp, commentadd.bp,
-                    random.bp, online.bp, commands.bp, shubs.bp, signals.bp, id.bp, iris.bp, devup.bp)
-user_id = (rget(f'https://api.vk.com/method/users.get?&v=5.52&access_token={token}').json())['response'][0]['id']
+                    random.bp, online.bp, commands.bp, shubs.bp, signals.bp, id.bp, iris.bp, devup.bp, voicetranslate.bp)
+# user_id = (rget(f'https://api.vk.com/method/users.get?&v=5.52&access_token={token}').json())['response'][0]['id']
 
 
 async def start():
+    from src.Filters.MiniBase import Days, adder, checker
+    await adder("StartTime", value=f"{Days()[1][0]}: {Days()[1][1]}, {Days()[3]}:{Days()[4]}.{Days()[5]}", intent=1)
+
+    if checker("config","VK_ME token") == "":
+        with open("config.json", "r", encoding="utf-8") as d:
+            data = json.load(d)
+        data["VK_ME token"] = False
+        with open("config.json", "w", encoding="utf-8") as d:
+            d.write(json.dumps(data, indent=5, ensure_ascii=False))
+
+    if checker("Settings", "AutoFerma") == False:
+        pass
+    else:
+        import src.commands.commentadd
+        await src.commands.commentadd.cichle(ans=Message)
+
     from unit import __author__, __version__, __namelp__
     from prefixs import p, stickerforstart
     text = f"""
@@ -44,7 +61,7 @@ async def start():
 📕 Версия LP: {__version__}
 Агенты: {p} помощь
     """
-    await user.api.messages.send(peer_id=user_id, message=text, random_id=0)
+    # await user.api.messages.send(peer_id=user_id, message=text, random_id=0)
     from loguru import logger as lg
     from prefixs import p, sticker
     from prefixs import stickerforstart, error_stickerforstart
@@ -59,7 +76,9 @@ async def start():
         → Ваши эмодзи: {stickerforstart}, {error_stickerforstart}
         → Версия лп: {__version__}
         ♔ Автор юзербота: {__author__}
+        → Информация: нл
         → Информация получена, LP готово к запуску.
+        PS убрано оповещение что LLP запущен.
           ------------------"""
 
     lg.log("[LenderLP]", text)

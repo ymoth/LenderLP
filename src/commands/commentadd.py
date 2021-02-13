@@ -66,12 +66,14 @@ async def cichle(ans:Message):
                     text=p+"+автоферма",
                     lower=True)
 async def fermaauto(ans:Message):
+    import src.Filters.MiniBase as Fil
     r_id = -174105461
     item_id = 35135
     complete = f"""
 {stick}Автоферма успешно включена! Следующий запрос через 4 часа!
 {es}После перезагрузки ЛП автоферма пропадает!!!
 """
+    await Fil.adder("AutoFerma", value=True, intent=5)
     await edit_msg(ans, complete)
     r.run_task(cichle(ans))
 

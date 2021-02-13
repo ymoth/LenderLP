@@ -52,5 +52,5 @@ ID Аватарки: {item_id}
     except VKError as err:
         if err.error_code == 15:
             from prefixs import error_sticker
-            await edit_msg(ans, f"{error_sticker} Нет доступа, возможные причины:\n Закрыт профиль, я В ЧС.")
+            await edit_msg(ans, f"{error_sticker} Нет доступа, возможные причины:\n Закрыт профиль, я в ЧС.")
 

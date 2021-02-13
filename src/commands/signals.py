@@ -85,21 +85,46 @@ async def shabdelete(ans: Message):
     RPCmd = int(len(os.listdir(path)))
     SHB = int(len(os.listdir(path2)))
 
+    import time as tm
+
+    t = tm
+
+    TimeInfo = [*t.localtime()]
+    if TimeInfo[1] == 1:
+        TimeInfo[1] = ["Январь", 1]
+    elif TimeInfo[1] == 2:
+        TimeInfo[1] = ["Февраль", 2]
+    elif TimeInfo[1] == 3:
+        TimeInfo[1] = ["Март", 3]
+    elif TimeInfo[1] == 4:
+        TimeInfo[1] = ["Апрель", 4]
+    elif TimeInfo[1] == 5:
+        TimeInfo[1] = ["Май", 5]
+    elif TimeInfo[1] == 6:
+        TimeInfo[1] = ["Июнь", 6]
+    elif TimeInfo[1] == 7:
+        TimeInfo[1] = ["Июль", 7]
+    elif TimeInfo[1] == 8:
+        TimeInfo[1] = ["Август", 8]
+    elif TimeInfo[1] == 9:
+        TimeInfo[1] = ["Сентябрь", 9]
+    elif TimeInfo[1] == 10:
+        TimeInfo[1] = ["Октябрь", 10]
+    elif TimeInfo[1] == 11:
+        TimeInfo[1] = ["Ноябрь", 11]
+    elif TimeInfo[1] == 12:
+        TimeInfo[1] = ["Декабрь", 12]
 
     text = f"""
 📘 {__namelp__} LP
 📕 Версия LP: {__version__}
 📙 Автор: {__author__}
 
-Присутсвие токенов: {y}
 Ваш стикер: {stickerforstart}
 Ваш стикер при ошибке: {error_stickerforstart}
 Ваш префикс: {p}
-Время в данный момент: {time.strftime("%H:%M,%S", time.localtime())} 🕑
 
-Кол-во РП-Команд: {RPCmd+1}
-Кол-во шаблонов: {SHB+1}
-
+Подробная информация: нл
 Пользователь: @id{ans.from_id}({username} {lastname})
 """
     return await edit_msg(ans, text)
@@ -187,7 +212,7 @@ async def ne(ans: Message, newerrorsticker: str):
     with open("config.json", "w", encoding="utf-8") as d:
         d.write(json.dumps(data, indent=3, ensure_ascii=False))
 
-    await edit_msg(ans, f'{sticker}Ваш стикер был успешно изменён на "{newerrorsticker}"\nПерезапустите LLP!"')
+    await edit_msg(ans, f'{sticker}Ваш стикер был успешно изменён на "{newerrorsticker}"\nПерезапустите LLP!')
 
 
 @bp.on.message_handler(FromMe(), text=p + "ксмс", lower=True)
@@ -241,7 +266,7 @@ async def userAddchat(ans: Message, domain_: str):
         await ans(f"{error_sticker}Ошибка приватности.")
 
 
-@bp.on.chat_message(FromMe(), text=[p + "кик <domain_>", "исключить <domain_>"])
+@bp.on.chat_message(FromMe(), text=[p + "кик <domain_>", "исключить <domain_>"], lower=True)
 async def userAddchat(ans: Message, domain_: str):
     try:
         domain = domain_.replace("@", "")
@@ -249,3 +274,17 @@ async def userAddchat(ans: Message, domain_: str):
         await ans(f"{sticker}Пользователь успешно удалён из беседы")
     except VKError:
         await ans(f"{error_sticker}Пользователь не был удалён из беседы. Ошибка VK API.")
+
+
+@bp.on.message_handler(FromMe(), text=[p+"подключить вк ми <token__>", p+"подключить vk me <token__>"], lower=True)
+async def VK_ME_ADD(token__:str, ans:Message):
+    from src.Filters import MiniBase
+    with open("config.json", 'r', encoding="utf-8") as tok:
+        data = json.load(tok)
+        token = data['VK_ME token']
+
+
+        data["VK_ME token"] = token__
+    with open("config.json", "w", encoding="utf-8") as VKME:
+        VKME.write(json.dumps(data, indent=3))
+
