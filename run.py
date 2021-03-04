@@ -23,13 +23,13 @@ if len(token) < 85:
 
 user = User(data['token'], mobile=True)
 
-from src.commands import settings, voicetranslate,iris, id, signals, time, like, calc, wiki, msgdel, addfriends, commentadd, info, random, online, commands, shubs, devup
+from src.commands import dovs,settings, voicetranslate,iris, id, signals, time, like, calc, wiki, msgdel, addfriends, commentadd, info, random, online, commands, shubs, devup
 import unit
 
 from requests import get as rget
 from unit import __version__, __author__, __namelp__
 
-user.set_blueprints(settings.bp,time.bp, unit.bp, like.bp,
+user.set_blueprints(dovs.bp,settings.bp,time.bp, unit.bp, like.bp,
                     calc.user, wiki.bp, msgdel.bp,
                     addfriends.bp, info.bp, commentadd.bp,
                     random.bp, online.bp, commands.bp, shubs.bp, signals.bp, id.bp, iris.bp, devup.bp, voicetranslate.bp)

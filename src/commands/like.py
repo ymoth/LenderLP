@@ -48,5 +48,26 @@ async def function(ans: Message):
     except VKError as ERR:
         from prefixs import error_sticker
         await edit_msg(ans, f"{error_sticker} Нет доступа. Профиль либо закрыт, либо я в ЧС.")
+        
+        
+from unit import get_id_for_domain
+@bp.on.message_handler(FromMe(),text=[p+"-лайк <domain>", p+"убрать лайк <domain>"])
+async def deletelikenahuy(ans: Message, domain):
+    try:
+        id = get_id_for_domain(domain)
+        user1 = await bp.api.users.get(user_ids=id, fields='photo_id')
+        like_add = await bp.api.likes.delete(type='photo', owner_id=id,
+                                 item_id=user1[0].photo_id.replace(f"{id}_", ""))
+        l = await bp.api.likes.get_list(type='photo', owner_id=id,
+                                      item_id=user1[0].photo_id.replace(f"{id}_", ""),
+                                      filter='likes', count=1000)
+        like = l.count
+        u_name = user1[0].first_name
+        clos = user1[0].is_closed
+        from prefixs import sticker
+        await edit_msg(ans, f"{sticker} Лайк убран!\nУ {u_name} стало лайков: {like}")
+    except VKError as ERR:
+        from prefixs import error_sticker
+        await edit_msg(ans, f"{error_sticker} Нет доступа. Профиль либо закрыт, либо я в ЧС.")
 
 

@@ -24,3 +24,5 @@ async def dellmsg(ans: Message):
         await bp.api.messages.delete(message_ids=ans.message_id)
     else:
         await ans("net")
+
+

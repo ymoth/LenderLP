@@ -15,6 +15,7 @@ async def adder(method: str, value, intent: int):
     with open("Settings.json", "w", encoding="utf-8") as d:
         d.write(json.dumps(data, indent=intent, ensure_ascii=False))
 
+
 def Days():
     import time as t
     TimeInfo = [*t.localtime()]
@@ -45,6 +46,11 @@ def Days():
     return TimeInfo
 
 
+async def LD(id, ld_id):
+    if id == ld_id:
+        return True
+    else:
+        False
 
 
 

@@ -1,6 +1,7 @@
 {
  "AutoFerma": false,
- "StartTime": "Февраль: 2, 14:15.40",
+ "StartTime": "",
  "DevUp": false,
- "VK_ME_TOKEN": false
+ "VK_ME_TOKEN": false,
+ "povtoryalka_prefix": "..."
 }

@@ -154,7 +154,7 @@ async def chatinfo(ans: Message):
     name, fam = RESPONE[0].first_name, RESPONE[0].last_name
     memberscul = CHATRESPONE['members_count']
     chat_id = CHATRESPONE['id']
-    photo = CHATRESPONE['photo_50']
+    photo = CHATRESPONE["photo_200"]
     if not photo:
         photo = "Не установлена фотография"
     import time
@@ -276,15 +276,46 @@ async def userAddchat(ans: Message, domain_: str):
         await ans(f"{error_sticker}Пользователь не был удалён из беседы. Ошибка VK API.")
 
 
-@bp.on.message_handler(FromMe(), text=[p+"подключить вк ми <token__>", p+"подключить vk me <token__>"], lower=True)
-async def VK_ME_ADD(token__:str, ans:Message):
+@bp.on.message_handler(FromMe(), text=[p + "подключить вк ми <token__>", p + "подключить vk me <token__>"], lower=True)
+async def VK_ME_ADD(token__: str, ans: Message):
     from src.Filters import MiniBase
     with open("config.json", 'r', encoding="utf-8") as tok:
         data = json.load(tok)
         token = data['VK_ME token']
 
-
         data["VK_ME token"] = token__
     with open("config.json", "w", encoding="utf-8") as VKME:
         VKME.write(json.dumps(data, indent=3))
+
+
+@bp.on.message_handler(FromMe(), text=p + "+админ <domain>")
+async def AddChatAdmin(ans: Message, domain):
+    try:
+        from unit import get_id_for_domain
+        domain = domain.replace("@", "")
+        id = get_id_for_domain(domain_=domain)
+        await bp.api.request("messages.setMemberRole", {"peer_id":ans.peer_id,
+                                                        "member_id":id,
+                                                        "role":"admin"})
+        await edit_msg(ans, f"{sticker} Пользователь успешно назначен администратором данного чата.")
+    except VKError:
+        await edit_msg(ans, f"{error_sticker}Нет доступа на назначение администратора.")
+
+
+@bp.on.message_handler(FromMe(), text=p + "-админ <domain>")
+async def DellChatAdmin(ans: Message, domain):
+    try:
+        from unit import get_id_for_domain
+        domain = domain.replace("@", "")
+        id = get_id_for_domain(domain_=domain)
+        await bp.api.request("messages.setMemberRole", {"peer_id":ans.peer_id,
+                                                        "member_id":id,
+                                                        "role":"member"})
+        await edit_msg(ans, f"{sticker} Пользователь убран с должности администратора чата.")
+    except VKError:
+        await edit_msg(ans, f"{error_sticker}Нет доступа на снятие администратора.")
+
+
+
+
 

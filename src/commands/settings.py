@@ -67,13 +67,17 @@ async def SettingsInformation(ans:Message):
     import os, time
     path = "src//shubs//"
     path2 = "src//meroleplays//"
+    path3 = "src//dovs//"
     RPCmd = int(len(os.listdir(path2)))
     SHB = int(len(os.listdir(path)))
-
+    dovs = int(len(os.listdir(path3)))
+    povtoryalka_prefix = checker("Settings", "povtoryalka_prefix")
     text = f"""
 {sticker}Пользователь @id{ans.from_id}({UserRespone["user_name"]} {UserRespone["user_family"]})
 Ваш стикер при ошибке: {error_stickerforstart}
 Ваш стикер: {stickerforstart}
+Ваш префикс: {p}
+Ваш префикс повторялки: {povtoryalka_prefix}
 
 Автоферма: {AutoFerma}
 Запуск LLP состоялся: {StartTime}
@@ -84,7 +88,9 @@ async def SettingsInformation(ans:Message):
 
 Месяц: {TimeInfo[1][0]}: {TimeInfo[1][1]} по счёту.
 Время: {TimeInfo[3]}:{TimeInfo[4]}.{TimeInfo[5]} 🕑
+Полная дата: {TimeInfo[2]}.{TimeInfo[1][1]}.{TimeInfo[0]} 📅
 
+Доверенных пользователей: {dovs}
 Кол-во РП-Команд: {RPCmd+1}
 Кол-во шаблонов: {SHB+1}
 
